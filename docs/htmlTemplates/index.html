@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <link href="/docs/static/stylesheet.css" rel="stylesheet">
+  <link rel="icon" href="/docs/static/imgs/icone.png" type="image/x-icon">
+  <title>GROUPIE-TRACKER</title>
+</head>
+
+<body>
+  <header>
+    <nav class="navbar">
+      <div class="nav left">
+        <a href="/"><img src="/docs/static/imgs/logo2.png" alt="logo"></a>
+      </div>
+      <div class="titre center">
+        <h1>GROUPIE-TRACKER </h1>
+      </div>
+      <div class="search right">
+        <form action="/search">
+          <input type="submit" name="search" id="search" value="SEARCH BAR">
+        </form>
+      </div>
+    </nav>
+  </header>
+
+  </header>
+  <section class="filterSection">
+    <h3>Filters:</h3>
+    <form action="/">
+      <p>Select a creation date</p>
+      <p>~~~~[<span id="fromCDshow"></span>]~~~~~~~~~~~[<span id="toCDshow"></span>]~~~~</p>
+      <div class="slideContainer">
+        <div class="slideItem">
+          <input type="range" min="1957" max="2020" value="1957" class="slider" name="fromCD" id="fromCD">
+        </div>
+        <div class="slideItem">
+          <input type="range" min="1957" max="2020" value="2020" class="slider" name="toCD" id="toCD">
+        </div>
+      </div>
+
+      <p>Choose a number of members</p>
+      <div class="slideContainer">
+        <input type="checkbox" id="member1" name="member" value="1">
+        <label for="member1">1</label>
+        <input type="checkbox" id="member2" name="member" value="2">
+        <label for="member2">2</label>
+        <input type="checkbox" id="member3" name="member" value="3">
+        <label for="member2">3</label>
+        <input type="checkbox" id="member4" name="member" value="4">
+        <label for="member2">4</label>
+        <input type="checkbox" id="member5" name="member" value="5">
+        <label for="member2">5</label>
+        <input type="checkbox" id="member6" name="member" value="6">
+        <label for="member2">6</label>
+        <input type="checkbox" id="member7" name="member" value="7">
+        <label for="member7">7</label>
+        <input type="checkbox" id="member8" name="member" value="8">
+        <label for="member8">8</label>
+      </div>
+      <br>
+      <p>Period of First Album</p>
+      <p>[ from ]-------------[ to ]</p>
+      <div class="slideContainer">
+        <input type="date" name="fromFA" value="1957-01-01">
+        <input type="date" name="toFA" value="2021-01-01">
+      </div>
+      <p>City/country of concerts:</p>
+      <div class="slideContainer">
+        <input type="text" name="location" placeholder="Pikine" pattern="[A-Za-z\s]+"
+          title="Please enter a valid location">
+      </div>
+      <br>
+      <br>
+      <div class="slideContainer">
+        <input type="submit" value="Apply Filters">
+      </div>
+    </form>
+  </section>
+  <script>
+    var fromCD = document.getElementById("fromCD");
+    var toCD = document.getElementById("toCD");
+    var fromCDshow = document.getElementById("fromCDshow");
+    var toCDshow = document.getElementById("toCDshow");
+    fromCDshow.innerHTML = fromCD.value;
+    toCDshow.innerHTML = toCD.value
+    fromCD.oninput = function () {
+      fromCDshow.innerHTML = this.value;
+    }
+    toCD.oninput = function () {
+      toCDshow.innerHTML = this.value;
+    }
+  </script>
+  </section>
+
+  </form>
+  </section>
+
+  <section class="mainSection">
+    <div class="flexContainer">
+      {{range .}}
+      <div class="flexItem">
+        <form action="/artiste" method="POST">
+          <input type="image" src="{{.Image}}" class="imgBorder">
+          <p><b>Name: </b>{{.Name}}</p>
+          <p><b>Creation Date: </b>{{.CreationDate}}</p>
+          <p><b>First Album: </b>{{.FirstAlbum}}</p>
+          <input name="relURL" value="{{.Relation}}" type="hidden">
+          <input name="name" value="{{.Name}}" type="hidden">
+      </div>
+      </form>
+      {{end}}
+    </div>
+  </section>
+
+
+</body>
+
+</html>

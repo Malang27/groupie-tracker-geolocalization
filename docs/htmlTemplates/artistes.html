@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> Info Artiste</title>
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="/docs/static/artistdetaille.css">
+  <script src="https://api-maps.yandex.ru/2.1/?apikey=df323c0d-918a-4c60-83c5-f11c5f474775&lang=fr_FR"
+    type="text/javascript"></script>
+  <script src="/docs/scripts/map.js"></script>
+</head>
+
+<body>
+  <header>
+    <nav>
+      <div class="nav">
+        <a href="/"><img src="/docs/static/imgs/logo2.png" alt="logo"></a>
+      </div>
+      <div class="titre">
+        <h1>GROUPIE-TRACKER </h1>
+      </div>
+      <h1>{{.Name}}</h1>
+    </nav>
+  </header>
+  <div class="container-all">
+    <div class="name-container">
+      <br><br>
+      <h2> {{.Name}} </h2>
+      Membres du groupe: <br>
+      {{range .Members}}
+      <li> {{ . }} </li>
+      {{end}}
+    </div>
+    <div class="block-infos">
+      <img src="{{.Image}}">
+      <br>
+      <h4>Creation Date :</h4> {{.CreationDate}}
+      <br>
+      <h4>First Album :</h4> {{.FirstAlbum}}
+    </div>
+
+    <div class="container-2">
+      <h2>Concert :</h2>
+      <ol>
+        {{range $key, $value := .Concerts}}
+        <li class="placemark" id="placemark">{{$key}}
+          <ul>{{range $value}}
+            <li id="dates">{{.}}</li>
+            {{end}}
+          </ul>
+        </li>
+        {{end}}
+      </ol>
+    </div>
+  </div>
+  <section class="mapSection">
+    <div id="map" style="width: 600px; height: 400px"></div>
+  </section>
+
+</body>
+
+</html>
